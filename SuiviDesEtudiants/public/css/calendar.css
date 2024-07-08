@@ -1,0 +1,151 @@
+
+ article, aside, details, figcaption, figure,
+ footer, header, hgroup, menu, nav, section {
+   display: block;
+ }
+ ol, ul {
+   list-style: none;
+ }
+ blockquote, q {
+   quotes: none;
+ }
+ blockquote:before, blockquote:after,
+ q:before, q:after {
+   content: '';
+   content: none;
+ }
+ table {
+   border-spacing: 2px;
+ }
+ .clearfix {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+ .clearfix:before,
+ .clearfix:after {
+     content: " "; /* 1 */
+     display: table; /* 2 */
+ }
+ 
+ .clearfix:after {
+     clear: both;
+ }
+ a, a:hover {
+     text-decoration: none;
+ }
+ .img-responsive {
+     max-width: 100%;
+     height: auto;
+ }
+
+ 
+ .elegant-calencar {
+     text-align: center;
+     position: relative;
+ }
+ 
+ #header {
+     margin-top: -10px;
+ }
+ 
+ .pre-button, .next-button {
+     cursor: pointer;
+     font-size: 2em;
+     color: #ffffff;
+     border: none;
+     background-color: #2a3246;
+ }
+ 
+ 
+ .pre-button:active,.next-button:active{
+     -webkit-transform: scale(0.7);
+     -ms-transform: scale(0.7);
+     transform: scale(0.7);
+ }
+ 
+ .pre-button {
+     float: left;
+     margin-left: 0.5em;
+ }
+ 
+ .next-button {
+     float: right;
+     margin-right: 0.5em;
+ }
+ 
+ .head-info {
+     float: left;
+     width: 16em;
+ }
+ 
+ .head-day {
+     margin-top: 30px;
+     line-height: 1;
+     color: #fff;
+ }
+ 
+ .head-month {
+     margin-top: 20px;
+     line-height: 1;
+     color: #fff;
+ }
+ 
+ #calendar {
+     width: 90%;
+     margin: 0 auto;
+ }
+ 
+ #calendar tr {
+     height: 2em;
+     line-height: 2em;
+ }
+ 
+ thead tr {
+    color: #e66b6b;
+ }
+ 
+ tbody tr {
+     color: #252a25;
+ }
+ 
+ tbody td{
+     width: 14%;
+     margin: 5px;
+     border-radius: 50px;
+     cursor: pointer;
+     -webkit-transition:all 0.2s ease-in;
+     transition:all 0.2s ease-in;
+ }
+ 
+ tbody td:hover, .selected {
+     color: #fff;
+     background-color: #2a3246;
+     border: none;
+ }
+ 
+ tbody td:active {
+     -webkit-transform: scale(0.7);
+     -ms-transform: scale(0.7);
+     transform: scale(0.7);
+ }
+ 
+ #today {
+     background-color: #e66b6b;
+     color: #fff;
+     border-radius: 50px;
+ }
+ 
+ #disabled {
+     cursor: default;
+     
+ }
+ 
+ #disabled:hover {
+    color: #fff;
+    background-color: #fff;
+ }
+
+ 
