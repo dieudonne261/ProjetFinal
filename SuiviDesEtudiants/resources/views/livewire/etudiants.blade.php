@@ -8,11 +8,45 @@
             <div class="lds-pos"></div>
         </div>
     </div>
+
+    @if (session('success'))
+        <div class="toast-container position-fixed bottom-0 border-success end-0 p-3 ">
+            <div id="liveToast" class="toast show bg-success border-2 border-success rounded" role="alert"
+                 aria-live="assertive" aria-atomic="true">
+                <div class="toast-header bg-success text-white">
+                    <strong class="me-auto">Messages</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body bg-white text-success">
+                    {{ session('success') }}
+                </div>
+            </div>
+        </div>
+    @endif
+
+    @if ($errors->any())
+        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+            <div id="liveToast" class="toast show bg-danger border-2 border-danger" role="alert" aria-live="assertive"
+                 aria-atomic="true">
+                <div class="toast-header bg-danger text-white">
+                    <strong class="me-auto">Messages d'erreur</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body bg-white text-danger">
+                    <ul class="lists-style-none">
+                        @foreach ($errors->all() as $error)
+                            <li>- {{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+        </div>
+    @endif
     <!-- ============================================================== -->
     <!-- Main wrapper - style you can find in pages.scss -->
     <!-- ============================================================== -->
     <div id="main-wrapper" data-theme="light" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
-        data-sidebar-position="fixed" data-header-position="fixed" data-boxed-layout="full">
+         data-sidebar-position="fixed" data-header-position="fixed" data-boxed-layout="full">
         <!-- ============================================================== -->
         <!-- Topbar header - style you can find in pages.scss -->
         <!-- ============================================================== -->
@@ -28,9 +62,9 @@
                     <div class="navbar-brand">
                         <!-- Logo icon -->
                         <a href="/dashboard">
-                            <img src="../assets/images/Suivi.png" alt="" class="p-4" width="200px" >
+                            <img src="../assets/images/Suivi.png" alt="" class="p-4" width="200px">
                         </a>
-                        
+
                     </div>
                     <!-- ============================================================== -->
                     <!-- End Logo -->
@@ -39,8 +73,8 @@
                     <!-- Toggle which is visible on mobile only -->
                     <!-- ============================================================== -->
                     <a class="topbartoggler d-block d-lg-none waves-effect waves-light"
-                        data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i
+                       data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i
                             class="ti-more"></i></a>
                 </div>
                 <!-- ============================================================== -->
@@ -53,7 +87,8 @@
                     <ul class="navbar-nav float-left me-auto ms-3 ps-1">
                         <li class="nav-item ">
                             <a class="nav-link " role="button"
-                                aria-haspopup="true" aria-expanded="false" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="En développement ...">
+                               aria-haspopup="true" aria-expanded="false" data-bs-toggle="tooltip"
+                               data-bs-placement="right" data-bs-title="En développement ...">
                                 <i data-feather="moon" class="svg-icon"></i>
                             </a>
                         </li>
@@ -63,22 +98,20 @@
                     <!-- Right side toggle and nav items -->
                     <!-- ============================================================== -->
                     <ul class="navbar-nav float-end">
-                        
+
                         <!-- ============================================================== -->
                         <!-- User profile -->
                         <!-- ============================================================== -->
                         <li class="nav-item dropdown" style="cursor: pointer;">
-                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true"
+                               aria-expanded="false">
                                 @livewire('profile-header')
                             </a>
-                            <div class="dropdown-menu dropdown-menu-end dropdown-menu-right user-dd animated flipInY rounded">
-                                <a class="dropdown-item" href="/profil"><i data-feather="user"
-                                        class="svg-icon me-2 ms-1"></i>
+                            <div
+                                class="dropdown-menu dropdown-menu-end dropdown-menu-right user-dd animated flipInY rounded">
+                                <a class="dropdown-item mt-2" href="/profil"><i data-feather="user"
+                                                                                class="svg-icon me-2 ms-1"></i>
                                     Mon Profil</a>
-                                <a class="dropdown-item" href="/parametre"><i data-feather="settings"
-                                        class="svg-icon me-2 ms-1"></i>
-                                    Parametre du compte</a>
-                                <div class="dropdown-divider "></div>
                                 <a class="dropdown-item">@livewire('logout')</a>
                             </div>
                         </li>
@@ -102,84 +135,105 @@
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
                         <!-- Menu principal -->
+                        @php
+                            $user = Auth::user();
+                        @endphp
 
-                        <li class="sidebar-item mt-2"> 
-                            <a class="sidebar-link sidebar-link " href="/dashboard" aria-expanded="false">
-                                <i data-feather="home" class="feather-icon"></i>
-                                <span
-                                    class="hide-menu">Menu principal
+                        @if($user && $user->role == 1 || $user->role == 2)
+                            <li class="sidebar-item mt-2">
+                                <a class="sidebar-link sidebar-link " href="/dashboard" aria-expanded="false">
+                                    <i data-feather="home" class="feather-icon"></i>
+                                    <span
+                                        class="hide-menu">Menu principal
                                 </span>
-                            </a>
-                        </li>
-                        
-                        <!-- Application-->
-                        
-                        <li class="list-divider mt-4"></li>
-                        <li class="nav-small-cap"><span class="hide-menu">Les APPLICATIONS</span></li>
+                                </a>
+                            </li>
 
-                        <li class="sidebar-item"> <a class="sidebar-link" href="/suividesetudiants"
-                                aria-expanded="false"><i data-feather="file-text" class="feather-icon"></i><span
-                                    class="hide-menu">Suivi des etudiants
+                            <!-- Application-->
+
+                            <li class="list-divider mt-4"></li>
+                            <li class="nav-small-cap"><span class="hide-menu">Les APPLICATIONS</span></li>
+
+                            <li class="sidebar-item"><a class="sidebar-link" href="/suividesetudiants"
+                                                        aria-expanded="false"><i data-feather="file-text"
+                                                                                 class="feather-icon"></i><span
+                                        class="hide-menu">Suivi des etudiants
                                 </span></a>
-                        </li>
-                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/gestiondesroles"
-                                aria-expanded="false"><i data-feather="link" class="feather-icon"></i><span
-                                    class="hide-menu">Gestion des roles</span></a>
-                                </li>
+                            </li>
+                            <li class="sidebar-item"><a class="sidebar-link sidebar-link" href="/gestiondesroles"
+                                                        aria-expanded="false"><i data-feather="link"
+                                                                                 class="feather-icon"></i><span
+                                        class="hide-menu">Gestion des rôles</span></a>
+                            </li>
 
-                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/workeducation"
-                                aria-expanded="false"><i data-feather="briefcase" class="feather-icon"></i><span
-                                    class="hide-menu">Work Education</span></a>
-                                </li>
+                            <li class="sidebar-item"><a class="sidebar-link sidebar-link" href="/workeducation"
+                                                        aria-expanded="false"><i data-feather="briefcase"
+                                                                                 class="feather-icon"></i><span
+                                        class="hide-menu">Work education</span></a>
+                            </li>
 
 
-                        <!-- Listes -->  
-                        <li class="list-divider"></li>
-                        <li class="nav-small-cap"><span class="hide-menu">Les Listes</span></li>
+                            <!-- Listes -->
+                            <li class="list-divider"></li>
+                            <li class="nav-small-cap"><span class="hide-menu">Les Listes</span></li>
 
-                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/personnages"
-                                aria-expanded="false"><i data-feather="users" class="feather-icon"></i><span
-                                    class="hide-menu">Personnages</span></a></li>
+                            <li class="sidebar-item"><a class="sidebar-link sidebar-link" href="/personnages"
+                                                        aria-expanded="false"><i data-feather="users"
+                                                                                 class="feather-icon"></i><span
+                                        class="hide-menu">Personnages</span></a></li>
 
-                        </li>
-                        <!--
-                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href=""
-                                aria-expanded="false"><i data-feather="book-open" class="feather-icon"></i><span
-                                    class="hide-menu">Etudiants</span></a></li>--> 
+                            </li>
+                            <!--
+                            <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href=""
+                                    aria-expanded="false"><i data-feather="book-open" class="feather-icon"></i><span
+                                        class="hide-menu">Etudiants</span></a></li>-->
 
-                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/membres"
-                                aria-expanded="false"><i data-feather="smile" class="feather-icon"></i><span
-                                    class="hide-menu">Membres</span></a></li>
+                            <li class="sidebar-item"><a class="sidebar-link sidebar-link" href="/membres"
+                                                        aria-expanded="false"><i data-feather="smile"
+                                                                                 class="feather-icon"></i><span
+                                        class="hide-menu">Membres</span></a></li>
 
-                                    <li class="sidebar-item"> <a class="sidebar-link has-arrow"
-                                aria-expanded="false"><i data-feather="activity" class="feather-icon"></i><span
-                                    class="hide-menu">Activités </span></a>
-                            <ul aria-expanded="false" class="collapse  first-level base-level-line">
-                                <li class="sidebar-item"><a href="/activiteuniverste" class="sidebar-link"><span
-                                            class="hide-menu"> Université
+                            <li class="sidebar-item"><a class="sidebar-link has-arrow"
+                                                        aria-expanded="false"><i data-feather="activity"
+                                                                                 class="feather-icon"></i><span
+                                        class="hide-menu">Activités </span></a>
+                                <ul aria-expanded="false" class="collapse  first-level base-level-line">
+                                    <li class="sidebar-item"><a href="/activiteuniversite" class="sidebar-link"><span
+                                                class="hide-menu"> Université
                                         </span></a>
-                                </li>
-                                <li class="sidebar-item"><a href="/activitesa" class="sidebar-link"><span
-                                            class="hide-menu"> S.A.
+                                    </li>
+                                    <li class="sidebar-item"><a href="/activitesa" class="sidebar-link"><span
+                                                class="hide-menu"> S.A.
                                         </span></a>
-                                </li>
-                                <li class="sidebar-item"><a href="/activiteautres" class="sidebar-link"><span
-                                            class="hide-menu"> Autres
+                                    </li>
+                                    <li class="sidebar-item"><a href="/activiteautres" class="sidebar-link"><span
+                                                class="hide-menu"> Autres
                                         </span></a>
-                                </li>
-                            </ul>
-                        </li>
+                                    </li>
+                                </ul>
+                            </li>
+                        @endif
 
-                        <li class="list-divider"></li>
 
+                        @if($user && $user->role == 1)
+                            <li class="list-divider"></li>
+                            <!-- Others -->
+                            <li class="nav-small-cap"><span class="hide-menu">Autres</span></li>
 
-                        <!-- Others -->  
-                        <li class="nav-small-cap"><span class="hide-menu">Autres</span></li>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link" href="/gestiondesutilisateurs" aria-expanded="false">
+                                    <i data-feather="user" class="feather-icon"></i>
+                                    <span class="hide-menu">Gestion des utilisateurs</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item mb-3">
+                                <a class="sidebar-link" href="/outils" aria-expanded="false">
+                                    <i data-feather="settings" class="feather-icon"></i>
+                                    <span class="hide-menu">Autres outils</span>
+                                </a>
+                            </li>
+                        @endif
 
-                        <li class="sidebar-item"> <a class="sidebar-link" href="/gestiondesutilisateurs"
-                                aria-expanded="false"><i data-feather="user" class="feather-icon"></i><span
-                                    class="hide-menu">Gestion des utilisateurs
-                                </span></a>
 
                     </ul>
                 </nav>
@@ -202,7 +256,9 @@
                     <div class="col-7 align-self-center">
                         <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">Bonjour !</h3>
                     </div>
-                    <div class="col-5 align-self-center">
+                    <div class="col-lg-1 col-md-12 p-2 align-self-center">
+                    </div>
+                    <div class="col-lg-6 col-md-12 align-self-center">
                         <div class="customize-input float-end">
                             @livewire('current-date-semestre')
                         </div>
@@ -218,9 +274,6 @@
             <div class="container-fluid">
 
 
-
-
-            
             </div>
             <!-- ============================================================== -->
             <!-- End Container fluid  -->
@@ -229,7 +282,7 @@
             <!-- footer -->
             <!-- ============================================================== -->
             <footer class="footer text-center text-muted">
-                All Rights Reserved by Freedash. Designed and Developed by Dede.
+                Copyright © 2024 Suivi des étudiants | UAZ
             </footer>
             <!-- ============================================================== -->
             <!-- End footer -->

@@ -14,12 +14,12 @@ class RoleController extends Controller
         $request->validate([
             'matricule' => 'required',
             'nomresponsabilite' => 'required',
-            'description' => 'required',
+            'description' => 'nullable',
             'debut' => 'required|date',
-            'fin' => 'required|date',
+            'fin' => 'nullable|date',
         ]);
 
-        if (strtotime($request->debut) >= strtotime($request->fin)) {
+        if (strtotime($request->debut) >= strtotime($request->fin ) && !is_null($request->fin) ) {
             return redirect()->route('gestion-des-roles')->withErrors(['La date de début doit être antérieure à la date de fin.']);
         }
 
@@ -38,6 +38,34 @@ class RoleController extends Controller
         ]);
 
         return redirect()->route('gestion-des-roles')->with('success', 'Roles enregistré avec succès.');
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'Matricule' => 'required',
+            'NomResponsabilite' => 'required',
+            'Description' => 'nullable',
+            'Debut' => 'required|date',
+            'Fin' => 'nullable|date',
+        ]);
+
+        $personne = Personne::where('Matricule', $request->Matricule)->first();
+
+        if (!$personne) {
+            return redirect()->route('gestion-des-roles')->withErrors(['Matricule non trouvé.']);
+        }
+
+        $roles = Role::findOrFail($id);
+        $roles->update([
+            'Matricule' => $request->Matricule,
+            'NomResponsabilite' => $request->NomResponsabilite,
+            'Description' => $request->Description,
+            'Debut' => $request->Debut,
+            'Fin' => $request->Fin,
+        ]);
+
+        return redirect()->route('gestion-des-roles')->with('success', 'Role mis à jour avec succès.');
     }
 
 }

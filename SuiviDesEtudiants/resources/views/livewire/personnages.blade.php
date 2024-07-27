@@ -1,8 +1,16 @@
+<style>
+    .text-dark-link:hover {
+        text-decoration: underline;
+    }
+</style>
+
 <!-- <link href="../assets/extra-libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet"> -->
+
+
 <link rel="stylesheet" href="../assets/extra-libs/datatables.net-bs4/css/dataTables.bootstrap4.css">
 <link rel="stylesheet" href="../assets/extra-libs/datatables.net-bs4/css/responsive.dataTables.min.css">
 <div>
-<!-- ============================================================== -->
+    <!-- ============================================================== -->
     <!-- Preloader - style you can find in spinners.css -->
     <!-- ============================================================== -->
     <div class="preloader">
@@ -15,7 +23,7 @@
     <!-- Main wrapper - style you can find in pages.scss -->
     <!-- ============================================================== -->
     <div id="main-wrapper" data-theme="light" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
-        data-sidebar-position="fixed" data-header-position="fixed" data-boxed-layout="full">
+         data-sidebar-position="fixed" data-header-position="fixed" data-boxed-layout="full">
         <!-- ============================================================== -->
         <!-- Topbar header - style you can find in pages.scss -->
         <!-- ============================================================== -->
@@ -31,10 +39,10 @@
                     <div class="navbar-brand">
                         <!-- Logo icon -->
                         <a href="#">
-                            <img src="../assets/images/Suivi.png" alt="" class="p-4" width="200px" >
+                            <img src="../assets/images/Suivi.png" alt="" class="p-4" width="200px">
                             <img src="" alt="" sizes="" srcset="">
                         </a>
-                        
+
                     </div>
                     <!-- ============================================================== -->
                     <!-- End Logo -->
@@ -43,8 +51,8 @@
                     <!-- Toggle which is visible on mobile only -->
                     <!-- ============================================================== -->
                     <a class="topbartoggler d-block d-lg-none waves-effect waves-light"
-                        data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i
+                       data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i
                             class="ti-more"></i></a>
                 </div>
                 <!-- ============================================================== -->
@@ -57,7 +65,8 @@
                     <ul class="navbar-nav float-left me-auto ms-3 ps-1">
                         <li class="nav-item ">
                             <a class="nav-link " role="button"
-                                aria-haspopup="true" aria-expanded="false" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="En développement ...">
+                               aria-haspopup="true" aria-expanded="false" data-bs-toggle="tooltip"
+                               data-bs-placement="right" data-bs-title="En développement ...">
                                 <i data-feather="moon" class="svg-icon"></i>
                             </a>
                         </li>
@@ -67,22 +76,20 @@
                     <!-- Right side toggle and nav items -->
                     <!-- ============================================================== -->
                     <ul class="navbar-nav float-end">
-                        
+
                         <!-- ============================================================== -->
                         <!-- User profile and search -->
                         <!-- ============================================================== -->
                         <li class="nav-item dropdown" style="cursor: pointer;">
-                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true"
+                               aria-expanded="false">
                                 @livewire('profile-header')
                             </a>
-                            <div class="dropdown-menu dropdown-menu-end dropdown-menu-right user-dd animated flipInY rounded">
-                                <a class="dropdown-item" href="/profil"><i data-feather="user"
-                                        class="svg-icon me-2 ms-1"></i>
+                            <div
+                                class="dropdown-menu dropdown-menu-end dropdown-menu-right user-dd animated flipInY rounded">
+                                <a class="dropdown-item mt-2" href="/profil"><i data-feather="user"
+                                                                                class="svg-icon me-2 ms-1"></i>
                                     Mon Profil</a>
-                                <a class="dropdown-item" href="/parametre"><i data-feather="settings"
-                                        class="svg-icon me-2 ms-1"></i>
-                                    Paremetre du compte</a>
-                                <div class="dropdown-divider "></div>
                                 <a class="dropdown-item">@livewire('logout')</a>
                             </div>
                         </li>
@@ -106,84 +113,105 @@
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
                         <!-- Menu principal -->
+                        @php
+                            $user = Auth::user();
+                        @endphp
 
-                        <li class="sidebar-item mt-2"> 
-                            <a class="sidebar-link sidebar-link " href="/" aria-expanded="false">
-                                <i data-feather="home" class="feather-icon"></i>
-                                <span
-                                    class="hide-menu">Menu principal
+                        @if($user && $user->role == 1 || $user->role == 2)
+                            <li class="sidebar-item mt-2">
+                                <a class="sidebar-link sidebar-link " href="/dashboard" aria-expanded="false">
+                                    <i data-feather="home" class="feather-icon"></i>
+                                    <span
+                                        class="hide-menu">Menu principal
                                 </span>
-                            </a>
-                        </li>
-                        
-                        <!-- Application-->
-                        
-                        <li class="list-divider mt-4"></li>
-                        <li class="nav-small-cap"><span class="hide-menu">Les APPLICATIONS</span></li>
+                                </a>
+                            </li>
 
-                        <li class="sidebar-item"> <a class="sidebar-link" href="/suividesetudiants"
-                                aria-expanded="false"><i data-feather="file-text" class="feather-icon"></i><span
-                                    class="hide-menu">Suivi des etudiants
+                            <!-- Application-->
+
+                            <li class="list-divider mt-4"></li>
+                            <li class="nav-small-cap"><span class="hide-menu">Les APPLICATIONS</span></li>
+
+                            <li class="sidebar-item"><a class="sidebar-link" href="/suividesetudiants"
+                                                        aria-expanded="false"><i data-feather="file-text"
+                                                                                 class="feather-icon"></i><span
+                                        class="hide-menu">Suivi des etudiants
                                 </span></a>
-                        </li>
-                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/gestiondesroles"
-                                aria-expanded="false"><i data-feather="link" class="feather-icon"></i><span
-                                    class="hide-menu">Gestion des roles</span></a>
-                                </li>
+                            </li>
+                            <li class="sidebar-item"><a class="sidebar-link sidebar-link" href="/gestiondesroles"
+                                                        aria-expanded="false"><i data-feather="link"
+                                                                                 class="feather-icon"></i><span
+                                        class="hide-menu">Gestion des rôles</span></a>
+                            </li>
 
-                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/workeducation"
-                                aria-expanded="false"><i data-feather="briefcase" class="feather-icon"></i><span
-                                    class="hide-menu">Work Education</span></a>
-                                </li>
+                            <li class="sidebar-item"><a class="sidebar-link sidebar-link" href="/workeducation"
+                                                        aria-expanded="false"><i data-feather="briefcase"
+                                                                                 class="feather-icon"></i><span
+                                        class="hide-menu">Work education</span></a>
+                            </li>
 
 
-                        <!-- Listes -->  
-                        <li class="list-divider"></li>
-                        <li class="nav-small-cap"><span class="hide-menu">Les Listes</span></li>
+                            <!-- Listes -->
+                            <li class="list-divider"></li>
+                            <li class="nav-small-cap"><span class="hide-menu">Les Listes</span></li>
 
-                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/personnages"
-                                aria-expanded="false"><i data-feather="users" class="feather-icon"></i><span
-                                    class="hide-menu">Personnages</span></a></li>
+                            <li class="sidebar-item"><a class="sidebar-link sidebar-link" href="/personnages"
+                                                        aria-expanded="false"><i data-feather="users"
+                                                                                 class="feather-icon"></i><span
+                                        class="hide-menu">Personnages</span></a></li>
 
-                        </li>
-                        <!--
-                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href=""
-                                aria-expanded="false"><i data-feather="book-open" class="feather-icon"></i><span
-                                    class="hide-menu">Etudiants</span></a></li>--> 
+                            </li>
+                            <!--
+                            <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href=""
+                                    aria-expanded="false"><i data-feather="book-open" class="feather-icon"></i><span
+                                        class="hide-menu">Etudiants</span></a></li>-->
 
-                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/membres"
-                                aria-expanded="false"><i data-feather="smile" class="feather-icon"></i><span
-                                    class="hide-menu">Membres</span></a></li>
+                            <li class="sidebar-item"><a class="sidebar-link sidebar-link" href="/membres"
+                                                        aria-expanded="false"><i data-feather="smile"
+                                                                                 class="feather-icon"></i><span
+                                        class="hide-menu">Membres</span></a></li>
 
-                                    <li class="sidebar-item"> <a class="sidebar-link has-arrow"
-                                aria-expanded="false"><i data-feather="activity" class="feather-icon"></i><span
-                                    class="hide-menu">Activités </span></a>
-                            <ul aria-expanded="false" class="collapse  first-level base-level-line">
-                                <li class="sidebar-item"><a href="/activiteuniverste" class="sidebar-link"><span
-                                            class="hide-menu"> Université
+                            <li class="sidebar-item"><a class="sidebar-link has-arrow"
+                                                        aria-expanded="false"><i data-feather="activity"
+                                                                                 class="feather-icon"></i><span
+                                        class="hide-menu">Activités </span></a>
+                                <ul aria-expanded="false" class="collapse  first-level base-level-line">
+                                    <li class="sidebar-item"><a href="/activiteuniversite" class="sidebar-link"><span
+                                                class="hide-menu"> Université
                                         </span></a>
-                                </li>
-                                <li class="sidebar-item"><a href="/activitesa" class="sidebar-link"><span
-                                            class="hide-menu"> S.A.
+                                    </li>
+                                    <li class="sidebar-item"><a href="/activitesa" class="sidebar-link"><span
+                                                class="hide-menu"> S.A.
                                         </span></a>
-                                </li>
-                                <li class="sidebar-item"><a href="/activiteautres" class="sidebar-link"><span
-                                            class="hide-menu"> Autres
+                                    </li>
+                                    <li class="sidebar-item"><a href="/activiteautres" class="sidebar-link"><span
+                                                class="hide-menu"> Autres
                                         </span></a>
-                                </li>
-                            </ul>
-                        </li>
+                                    </li>
+                                </ul>
+                            </li>
+                        @endif
 
-                        <li class="list-divider"></li>
 
+                        @if($user && $user->role == 1)
+                            <li class="list-divider"></li>
+                            <!-- Others -->
+                            <li class="nav-small-cap"><span class="hide-menu">Autres</span></li>
 
-                        <!-- Others -->  
-                        <li class="nav-small-cap"><span class="hide-menu">Autres</span></li>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link" href="/gestiondesutilisateurs" aria-expanded="false">
+                                    <i data-feather="user" class="feather-icon"></i>
+                                    <span class="hide-menu">Gestion des utilisateurs</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item mb-3">
+                                <a class="sidebar-link" href="/outils" aria-expanded="false">
+                                    <i data-feather="settings" class="feather-icon"></i>
+                                    <span class="hide-menu">Autres outils</span>
+                                </a>
+                            </li>
+                        @endif
 
-                        <li class="sidebar-item"> <a class="sidebar-link" href="/gestiondesutilisateurs"
-                                aria-expanded="false"><i data-feather="user" class="feather-icon"></i><span
-                                    class="hide-menu">Gestion des utilisateurs
-                                </span></a>
 
                     </ul>
                 </nav>
@@ -203,10 +231,12 @@
             <!-- ============================================================== -->
             <div class="page-breadcrumb">
                 <div class="row">
-                    <div class="col-7 align-self-center">
-                        
-                    </div>
                     <div class="col-5 align-self-center">
+
+                    </div>
+                    <div class="col-lg-1 col-md-12 p-2 align-self-center">
+                    </div>
+                    <div class="col-lg-6 col-md-12 align-self-center">
                         <div class="customize-input float-end">
                             @livewire('current-date-semestre')
                         </div>
@@ -224,37 +254,43 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="card p-4">
-                            
-                            <p class="card-title display-6">Listes des personnages</p>
+
+                            <p class="card-title display-6">Listes Des Personnages</p>
                             <h6 class="card-subtitle">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente hic nesciunt officia architecto, veniam maxime praesentium, molestiae quae aliquid nemo odio modi quam debitis obcaecati, velit quibusdam optio blanditiis consequuntur!
-                                </h6>
-                                <hr>
-                                <div class="table-responsive">
-                                    <table id="zero_config" class="table border table-striped table-bordered text-nowrap">
-                                        <thead>
-                                            <tr>
-                                                <th>Id</th>
-                                                <th>Matricule</th>
-                                                <th>Nom</th>
-                                                <th>Prenom</th>
-                                                <th>Sexe</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($personnes as $personne)
-                                                <tr>
-                                                    <td>{{ $personne->id }}</td>
-                                                    <td>{{ $personne->Matricule }}</td>
-                                                    <td class="text-uppercase">{{ $personne->Nom }}</td>
-                                                    <td>{{ $personne->Prenom }}</td>
-                                                    <td>{{ $personne->Sex }}</td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-                            
+                                Bienvenue dans la section Listes Des Personnages. Ici, vous pouvez voir tous les
+                                personnages enregistrés dans le système de notre université. Cette section vous permet
+                                de consulter leurs détails.
+                            </h6>
+
+                            <hr>
+                            <div class="table-responsive">
+                                <table id="zero_config" class="table border table-striped table-bordered text-nowrap">
+                                    <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Matricule</th>
+                                        <th>Nom</th>
+                                        <th>Prenom</th>
+                                        <th>Sexe</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach ($personnes as $personne)
+                                        <tr>
+                                            <td>{{ $personne->id }}</td>
+                                            <td>
+                                                <a class="font-bold link"
+                                                   href="matricule/{{ $personne->Matricule }}">{{ $personne->Matricule }}</a>
+                                            </td>
+                                            <td class="text-uppercase">{{ $personne->Nom }}</td>
+                                            <td>{{ $personne->Prenom }}</td>
+                                            <td>{{ $personne->Sex }}</td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+
                             <!-- end card-body-->
                         </div> <!-- end card -->
 
@@ -269,7 +305,7 @@
             <!-- footer -->
             <!-- ============================================================== -->
             <footer class="footer text-center text-muted">
-                All Rights Reserved by Freedash. Designed and Developed by Dede.
+                Copyright © 2024 Suivi des étudiants | UAZ
             </footer>
             <!-- ============================================================== -->
             <!-- End footer -->
@@ -288,24 +324,24 @@
     <!-- ============================================================== -->
 
     <script>
-    $(document).ready(function() {
-    $('#example').DataTable({
-        "paging": true,
-        "searching": true,
-        "ordering": true,
-        "info": true,
-        "columns": [
-            { "name": "Id" },
-            { "name": "Matricule" },
-            { "name": "Nom" },
-            { "name": "Prenom" },
-            { "name": "Sex" }
-        ]
-    });
-    });
-    document.addEventListener('livewire:load', function () {
-        $('#personnes-table').DataTable();
-    });
+        $(document).ready(function () {
+            $('#example').DataTable({
+                "paging": true,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "columns": [
+                    {"name": "Id"},
+                    {"name": "Matricule"},
+                    {"name": "Nom"},
+                    {"name": "Prenom"},
+                    {"name": "Sex"}
+                ]
+            });
+        });
+        document.addEventListener('livewire:load', function () {
+            $('#personnes-table').DataTable();
+        });
     </script>
     <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
     <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
@@ -326,11 +362,11 @@
     <script src="../assets/extra-libs/jvector/jquery-jvectormap-2.0.2.min.js"></script>
     <script src="../assets/extra-libs/jvector/jquery-jvectormap-world-mill-en.js"></script>
     <script src="../dist/js/pages/dashboards/dashboard1.min.js"></script>
-    
+
 
     <script src="../assets/extra-libs/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="../assets/extra-libs/datatables.net-bs4/js/dataTables.responsive.min.js"></script>
     <script src="../dist/js/pages/datatable/datatable-basic.init.js"></script>
-    
+
 
 </div>

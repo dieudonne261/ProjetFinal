@@ -10,10 +10,10 @@ class MembreUser extends Model
     use HasFactory;
 
     protected $fillable = [
-        'IdMembres', 
-        'Matricule', 
-        'Role', 
-        'DateAjout', 
+        'IdMembres',
+        'Matricule',
+        'Role',
+        'DateAjout',
         'DateRetire'
     ];
 

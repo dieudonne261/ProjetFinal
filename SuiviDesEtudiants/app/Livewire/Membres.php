@@ -15,6 +15,7 @@ class Membres extends Component
     public function mount() {
         $this->membres = Membre::with('membreUsers')->get();
     }
+    
     public function render()
     {
         return view('livewire.membres');

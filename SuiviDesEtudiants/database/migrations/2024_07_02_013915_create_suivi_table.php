@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('MatriculeCible');
             $table->string('Types');
-            $table->text('Description');
+            $table->text('Description')->nullable();
             $table->date('DateSuivi');
             $table->string('MatriculeAdd');
             $table->timestamps();

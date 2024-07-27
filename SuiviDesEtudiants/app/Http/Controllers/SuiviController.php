@@ -14,7 +14,7 @@ class SuiviController extends Controller
         $request->validate([
             'matriculeCible' => 'required',
             'types' => 'required',
-            'description' => 'required',
+            'description' => 'nullable|string',
             'dateSuivi' => 'required|date',
         ]);
 
@@ -40,10 +40,16 @@ class SuiviController extends Controller
         $request->validate([
             'matriculeCible' => 'required',
             'types' => 'required',
-            'description' => 'required',
+            'description' => 'nullable',
             'dateSuivi' => 'required|date',
         ]);
 
+        $personne = Personne::where('Matricule', $request->matriculeCible)->first();
+
+        if (!$personne) {
+            return redirect()->route('suivi-des-etudiants')->withErrors(['Matricule non trouvé.']);
+        }
+        
         $suivi = Suivi::findOrFail($id);
         $suivi->update([
             'MatriculeCible' => $request->matriculeCible,

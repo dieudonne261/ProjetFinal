@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('IdMembres')->unique();
             $table->string('Nom');
-            $table->text('Description');
+            $table->text('Description')->nullable();
             $table->date('Debut');
-            $table->date('Fin');
+            $table->date('Fin')->nullable();
             $table->timestamps();
         });
     }
