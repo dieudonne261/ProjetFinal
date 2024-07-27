@@ -1,0 +1,40 @@
+Aide moi svp car les donnees afficher sont incorrenct
+le matricule connecter est le 30169
+dans le table etat_semestre, j'ai les données
+id IdSemestre NomSemestre DateDebut DateFin
+1 1 Premier Semestre 2023-11-01 2024-02-20
+2 2 Deuxieme Semestre 2024-03-01 2024-07-10
+
+dans la table suivis
+id MatriculeCible Types Description DateSuivi MatriculeAdd
+1 30170 Astuces Lorem 2024-06-20 30169
+2 30169 Astuces Lorem 2024-01-02 30189
+3 10101 Astuces Lorem 2023-09-10 30169
+4 60179 Astuces Lorem 2024-06-20 30169
+
+Normalment je doit avoir
+{
+    "labels": [
+        "Premier Semestre-2024",
+        "Pause semestre-2024",
+        "Deuxieme Semestre-2024"
+    ],
+    "datasets": {
+        "cible": [
+            1,
+            0,
+            0
+        ],
+        "add": [
+            1,
+            0,
+            2
+        ]
+    }
+}
+
+Dans mon projet laravel 10 avec framework livewire
+comment eviter l'erreur
+Failed to load resource: the server responded with a status of 404 (Not Found)
+si le fichiier ne trouve pas <img src="../assets/images/users/{{ $suivi->MatriculeCible }}.jpg"
+changer en default.jpg
